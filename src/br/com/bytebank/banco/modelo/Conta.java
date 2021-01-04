@@ -1,98 +1,103 @@
 package br.com.bytebank.banco.modelo;
 
 /**
- * Classe representa a moldura de uma conta
- * @author Caroline Araujo
- *
- */
+* Class representa a moldura de uma conta
+* @autor Caroline Araujo
+*
+*/
 
-public abstract class Conta {
+public abstract class Conta{
 	double saldo;
 	private int agencia;
 	private int numero;
 	private Cliente titular;
 	private static int total = 0;
 	
-	/**
-	 * Construtor para inicializar o objeto Conta a partir da agencia e numero
-	 * @param agencia
-	 * @param numero
-	 */
 	
 	public Conta(int agencia, int numero) {
 		Conta.total++;
-		System.out.println("o total de controle é " + Conta.total);
+		//System.out.println("O total de controle é " + Conta.total);
 		this.agencia = agencia;
 		this.numero = numero;
-		System.out.println("Estou criando uma conta " + this.numero);
+		//System.out.println("Estu criando uma conta " + this.numero);
 	}
 	
 	public abstract void deposita(double valor);
 	
-	/**
-	 * Valor precisa ser maior do que o saldo
-	 * @param valor
-	 * @throws SaldoInsuficienteException
-	 */
-	
 	public void saca(double valor) throws SaldoInsuficienteException{
-	
+		
 		if(this.saldo < valor) {
-			throw new SaldoInsuficienteException("Saldo: " + this.saldo + ", Valor: " + valor);
+			throw new SaldoInsuficienteException("Saldo: " + this.saldo + " , Valor: " + valor); 
 		}
 		
 		this.saldo += valor;
 	}
 	
-	public void transfere(double valor, Conta destino) throws SaldoInsuficienteException{
+	public void transfere(double valor, Conta destino) throws SaldoInsuficienteException {
 		this.saca(valor);
 		destino.deposita(valor);
 	}
-
+	
 	public double getSaldo() {
-		return saldo;
+		return this.saldo;
 	}
-
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
-	}
-
-	public int getAgencia() {
-		return agencia;
-	}
-
-	public void setAgencia(int agencia) {
-		this.agencia = agencia;
-	}
-
+	
 	public int getNumero() {
-		return numero;
+		return this.numero;
 	}
-
+	
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-
-	public Cliente getTitular() {
-		return titular;
+	
+	public int getAgencia() {
+		return this.agencia;
 	}
-
+	
+	public void setAgencia(int agencia) {
+		this.agencia = agencia;
+	}
+	
 	public void setTitular(Cliente titular) {
 		this.titular = titular;
 	}
-
+	
+	public Cliente getTitular() {
+		return titular;
+	}
+	
 	public static int getTotal() {
 		return total;
 	}
-
-	public static void setTotal(int total) {
-		Conta.total = total;
-	}
-
-	public double getValorImposto() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	@Override
+	public boolean equals(Object ref) {
+		
+		Conta outra = (Conta) ref;
+		
+		if(this.agencia != outra.agencia) {
+			return false;
+		}
+		
+		if(this.numero != outra.numero) {
+			return false;
+		}
+		
+		return true;
 	}
 	
-
+	@Override
+	public String toString() {
+		return " Numero: " + this.numero + ", Agencia: " + this.agencia;
+	}
+	
+	
+	
+	
+	
+	
 }
+
+
+
+	

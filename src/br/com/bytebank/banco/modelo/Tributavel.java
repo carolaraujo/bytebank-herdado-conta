@@ -1,9 +1,7 @@
 package br.com.bytebank.banco.modelo;
 
-public class Tributavel {
+public interface Tributavel {
 
 	
-	double getValorImposto() {
-		return 0;
-	}
+	double getValorImposto();
 }
